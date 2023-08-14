@@ -20,18 +20,16 @@ function getData(endpoint) {
   });
 }
 
-const moviesPromise = getData('./movies.json');
-const actorsPromise = getData('./actors.json');
-const directorsPromise = getData('./directors.json');
-
-const dummyPromise = new Promise((resolve, reject) => {
-  resolve('Hello World');
-});
-
-// Takes in promises
-Promise.all([moviesPromise, actorsPromise, directorsPromise, dummyPromise])
-  .then((data) => {
-    // Returns an array of promise results
-    console.log(data);
+getData('./movies.json')
+  .then((movies) => {
+    console.log(movies);
+    return getData('./actors.json');
+  })
+  .then((actors) => {
+    console.log(actors);
+    return getData('./directors.json');
+  })
+  .then((directors) => {
+    console.log(directors);
   })
   .catch((error) => console.log(error));
